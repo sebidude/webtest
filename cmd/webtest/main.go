@@ -1,8 +1,14 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
 	"os"
+
+	"github.com/gin-gonic/gin"
+)
+
+var (
+	hostname string
 )
 
 func GetEnvOrDefault(key, defaultValue string) string {
@@ -14,6 +20,12 @@ func GetEnvOrDefault(key, defaultValue string) string {
 }
 
 func main() {
+	var err error
+	hostname, err = os.Hostname()
+	if err != nil {
+		fmt.Println("Cannot get hostname!")
+		os.Exit(1)
+	}
 
 	r := gin.New()
 	r.Use(gin.Recovery())
@@ -23,5 +35,5 @@ func main() {
 }
 
 func anyHandler(c *gin.Context) {
-	c.String(200, "Hello World.")
+	c.String(200, "Hello World from %s", hostname)
 }
