@@ -9,6 +9,7 @@ import (
 
 var (
 	hostname string
+	greeting string
 )
 
 func GetEnvOrDefault(key, defaultValue string) string {
@@ -27,6 +28,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	greeting = GetEnvOrDefault("GREETING", "simple webtest")
+
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
@@ -35,5 +38,5 @@ func main() {
 }
 
 func anyHandler(c *gin.Context) {
-	c.String(200, "Hello World from %s", hostname)
+	c.String(200, "Hello World from %s (%s)", hostname, greeting)
 }
