@@ -1,0 +1,6 @@
+FROM scratch
+
+COPY build/linux/webtest /usr/bin/webtest
+COPY content.txt /content.txt
+USER 10001
+ENTRYPOINT ["/usr/bin/webtest"]
