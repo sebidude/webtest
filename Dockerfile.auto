@@ -11,6 +11,6 @@ RUN make build-linux
 FROM scratch
 
 COPY --from=builder /build/webtest/build/linux/webtest /usr/bin/webtest
-COPY content.txt /content.txt
+COPY content.txt /content/content.txt
 USER 10001
 ENTRYPOINT ["/usr/bin/webtest"]

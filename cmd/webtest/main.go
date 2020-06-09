@@ -11,6 +11,7 @@ import (
 var (
 	hostname    string
 	greeting    string
+	contentdir  string
 	contentfile string
 	filecontent []byte
 )
@@ -32,7 +33,8 @@ func main() {
 	}
 
 	greeting = GetEnvOrDefault("GREETING", "simple webtest")
-	contentfile = GetEnvOrDefault("CONTENT", "/content.txt")
+	contentfile = GetEnvOrDefault("CONTENTFILE", "/content/content.txt")
+	contentdir = GetEnvOrDefault("CONTENTDIR", "/content")
 	filecontent, err = ioutil.ReadFile(contentfile)
 	if err != nil {
 		fmt.Printf("Cannot read content from %s: %s", contentfile, err.Error())
@@ -43,8 +45,8 @@ func main() {
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 	r.Any("/", helloHandler)
-	r.GET("/content", contentHandler)
-	r.StaticFile("/filecontent", contentfile)
+	r.GET("/filecontent", contentHandler)
+	r.StaticFS("/contentdir", gin.Dir(contentdir, true))
 	r.Run(GetEnvOrDefault("LISTEN_ADDRESS", ":8080"))
 }
 
