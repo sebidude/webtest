@@ -31,7 +31,7 @@ dep-update:
 	@go get -u -v -d ./...
 
 run:
-	build/linux/webtest
+	CONTENTDIR=. CONTENTFILE=content.txt build/linux/webtest
 
 build-linux: info dep
 	@echo Building for linux
