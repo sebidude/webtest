@@ -61,7 +61,6 @@ func main() {
 	r.GET("/alive", aliveProbe)
 	r.GET("/fail", failProbe)
 	r.GET("/faillate", faillateProbe)
-	r.GET("/readylate", readylateProbe)
 	r.Run(GetEnvOrDefault("LISTEN_ADDRESS", ":8080"))
 }
 
