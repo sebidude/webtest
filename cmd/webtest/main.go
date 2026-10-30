@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 
@@ -41,7 +40,7 @@ func main() {
 	greeting = GetEnvOrDefault("GREETING", "simple webtest")
 	contentfile = GetEnvOrDefault("CONTENTFILE", "/content/content.txt")
 	contentdir = GetEnvOrDefault("CONTENTDIR", "/content")
-	filecontent, err = ioutil.ReadFile(contentfile)
+	filecontent, err = os.ReadFile(contentfile)
 	if err != nil {
 		fmt.Printf("Cannot read content from %s: %s", contentfile, err.Error())
 		os.Exit(1)
